@@ -1,6 +1,6 @@
 from django.urls import path
 from .views import RegisterView, LogoutAPIView, confirm_reset_pass,\
-    update_user_details, author_verified, update_user_image, author_verification_list, reset_pass, SetNewPasswordAPIView, VerifyEmail, LoginAPIView, PasswordTokenCheckAPI, RequestPasswordResetEmail, check_email, email_verification, resend_verification
+    update_user_details, driver_verified, update_user_image, driver_verification_list, reset_pass, SetNewPasswordAPIView, VerifyEmail, LoginAPIView, PasswordTokenCheckAPI, RequestPasswordResetEmail, check_email, email_verification, resend_verification
 from rest_framework_simplejwt.views import (
     TokenRefreshView,
 )
@@ -25,8 +25,8 @@ urlpatterns = [
     path('update-image/', update_user_image, name="update-image"),
     path('request-password-reset/<email>/', reset_pass, name="request-password-reset"),
     path('confirm-reset-password/<email>/<str:token>/', confirm_reset_pass, name="request-password-reset"),
-    path('author-verification/', author_verification_list, name="author-verification"),
-    path('author-verified/<str:username>/', author_verified, name="author-verified"),
+    path('author-verification/', driver_verification_list, name="author-verification"),
+    path('author-verified/<str:username>/', driver_verified, name="author-verified"),
 ]
-# if settings.DEBUG:
-#     urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
+if settings.DEBUG:
+    urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

@@ -78,7 +78,7 @@ class LoginSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = User
-        fields = ['email', 'password', 'username', 'tokens', 'is_author', 'id', 'image']
+        fields = ['email', 'password', 'username', 'tokens', 'is_driver', 'id', 'is_passenger', 'image']
 
     def validate(self, attrs):
         email = attrs.get('email', '')
@@ -102,7 +102,8 @@ class LoginSerializer(serializers.ModelSerializer):
             'email': user.email,
             'image': user.image,
             'username': user.username,
-            'is_author': user.is_author,
+            'is_driver': user.is_driver,
+            'is_passenger': user.is_passenger,
             'tokens': user.tokens,
             'id': user.id,
         }

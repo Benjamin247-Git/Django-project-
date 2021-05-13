@@ -189,7 +189,7 @@ def update_user_details(request):
              "tw4t", "twat", "twathead", "twatty", "twunt", "twunter", "v14gra", "v1gra", "vagina", "viagra", "vulva", "w00se", "wang", "wank", "wanker", "wanky", "whoar", "whore",
              "willies", "willy", "xrated", "xxx"]
 
-    # if user.is_author:
+    # if user.is_driver:
     serializer = UserCrudSerializer(user, data=request.data, partial=True)
     if serializer.is_valid():
         first_name = serializer.validated_data['first_name']
@@ -238,7 +238,7 @@ from .serializers import UserImageSerializer
 def update_user_image(request):
     user = request.user
 
-    if user.is_author:
+    if user.is_driver:
         serializer = UserImageSerializer(user, data=request.data)
         if serializer.is_valid():
             serializer.save()
@@ -396,9 +396,9 @@ def check_email(request, email):
 from django.contrib.auth.decorators import login_required
 
 @login_required
-def author_verification_list(request):
+def driver_verification_list(request):
     if request.user.is_superuser:
-        author_list = User.objects.filter(is_verified=True, is_author=False, verify_author=True)
+        author_list = User.objects.filter(is_verified=True, is_driver=False, verify_driver=True)
 
         return render(request,'authentication/index.html', {"author_list": author_list}, )
     else:
@@ -408,11 +408,11 @@ def author_verification_list(request):
 from django.http import HttpResponseRedirect
 
 @login_required
-def author_verified(request, username):
+def driver_verified(request, username):
     user = User.objects.get(username=username)
 
-    if not user.is_author and request.user.is_superuser:
-        user.is_author = True
+    if not user.driver and request.user.is_superuser:
+        user.is_driver = True
         user.save()
 
         email_body = f"Hello {user.username}, \n   We are glad to inform you that you have been verified as an author. You can now post articles and audio sermons. Other users can also " \
