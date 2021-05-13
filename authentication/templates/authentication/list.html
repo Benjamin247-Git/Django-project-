@@ -1,0 +1,17 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>LIST</title>
+</head>
+<body>
+
+{% for author in author_list %}
+
+    <h2>{{ author.username }}: {{ author.email }}</h2>
+
+{% endfor %}
+
+</body>
+</html>
